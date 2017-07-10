@@ -39,11 +39,11 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
 
     private static Logger logger = LoggerFactory.getLogger(CreateIndexServiceImpl.class);
 
-    private static final Long DEFAULT_PAGE_SIZE = 10000L;//默认每页大小
+    private static final Long DEFAULT_PAGE_SIZE = 1000L;//默认每页大小
 
     private TransportClient client;
 
-    private String index;
+    private String index = "fangchan";
 
 
     @Resource
@@ -58,6 +58,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         //创建client
         client = new PreBuiltTransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+       // client.admin().indices().create(new CreateIndexRequest(index)).actionGet();
     }
 
     @Override
@@ -79,7 +80,6 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         try{
             if (CollectionUtils.isNotEmpty(list)){
                 for (String type: types) {
-                    client.admin().indices().create(new CreateIndexRequest(type)).actionGet();
                     if (type.equals(TypeEunms.SEARCH_TYPE_FY.getValue())){
                         createFYIndex(type);
                     }else if (type.equals(TypeEunms.SEARCH_TYPE_XX.getValue())){
@@ -112,20 +112,31 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
 
         deleteType(type);
 
-        Map map=new HashMap();
-        map.put("start",30);
-        map.put("rows",20);
-        List<CommunityRoomPO> communityRoomPOS=communityRoomMapper.findByPage(map);
 
-        //核心方法BulkRequestBuilder拼接多个Json
-        BulkRequestBuilder bulkRequest = client.prepareBulk();
-        for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(type, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
-            bulkRequest.add(requestBuilder);
+        Long num = communityRoomMapper.countNum();
+
+        //计算总页数
+        if (num != null && num >0){
+            Long totalPages = num / DEFAULT_PAGE_SIZE;
+            if (num % DEFAULT_PAGE_SIZE >0){
+                totalPages++;
+            }
+            for (int i=1; i<=totalPages;i++){
+                Map map=new HashMap();
+                map.put("start",i);
+                map.put("rows",DEFAULT_PAGE_SIZE);
+                List<CommunityRoomPO> communityRoomPOS=communityRoomMapper.findByPage(map);
+                //核心方法BulkRequestBuilder拼接多个Json
+                BulkRequestBuilder bulkRequest = client.prepareBulk();
+                for(CommunityRoomPO communityRoomPO:communityRoomPOS){
+                    IndexRequestBuilder requestBuilder=client.prepareIndex(type, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+                    bulkRequest.add(requestBuilder);
+                }
+                //插入文档至ES, 完成！
+                bulkRequest.execute().actionGet();
+
+            }
         }
-
-        //插入文档至ES, 完成！
-        bulkRequest.execute().actionGet();
         logger.info("==========================================");
         logger.info("房源索引创建完毕");
         logger.info("==========================================");
