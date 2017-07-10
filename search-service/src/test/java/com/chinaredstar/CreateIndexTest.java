@@ -9,10 +9,13 @@ import com.chinaredstar.fc.util.json.JsonFormatter;
 import junit.framework.TestCase;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
@@ -60,9 +63,9 @@ public class CreateIndexTest extends TestCase{
 
     private TransportClient client;
 
-   private  String index = "alloutlet";
+    private  String index = "alloutlet";
 
-   private  String type = "details";
+    private  String type = "details";
 
     private String schoolType="schoolType";
 
@@ -108,8 +111,10 @@ public class CreateIndexTest extends TestCase{
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(CommunityRoomPO communityRoomPO:list){
             IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
-            bulkRequest.add(requestBuilder);
+            UpdateRequestBuilder updateRequestBuilder=client.prepareUpdate(index, type,communityRoomPO.getId()).setDoc(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            bulkRequest.add(updateRequestBuilder);
         }
+
 
         //插入文档至ES, 完成！
         bulkRequest.execute().actionGet();
@@ -145,7 +150,7 @@ public class CreateIndexTest extends TestCase{
     public void deleteIndex(){
         DeleteIndexResponse del=client.admin().indices()
                 //这个索引库的名称还必须不包含大写字母
-                .prepareDelete(index).execute().actionGet();
+        .prepareDelete(index).execute().actionGet();
     }
 
 
@@ -171,7 +176,7 @@ public class CreateIndexTest extends TestCase{
     @Test
     public void queryData(){
         SearchResponse searchResponse = client.prepareSearch(index)
-                .setTypes(type)
+                .setTypes(type,schoolType)
                 .setQuery(QueryBuilders.matchAllQuery()) //查询所有
                 //.setQuery(QueryBuilders.matchQuery("name", "tom").operator(Operator.AND)) //根据tom分词查询name,默认or
                 .setQuery(QueryBuilders.multiMatchQuery("花园", "communityName", "title")) //指定查询的字段
@@ -189,6 +194,18 @@ public class CreateIndexTest extends TestCase{
         System.out.println("查询ES数据：");
         for(SearchHit s : searchHits) {
             System.out.println(s.getSourceAsString());
+        }
+    }
+
+    /**
+     * 查询索引是否存在
+     */
+    @Test
+    public void queryIndex(){
+        IndicesExistsRequest request = new IndicesExistsRequest(index);
+        IndicesExistsResponse response = client.admin().indices().exists(request).actionGet();
+        if (response.isExists()) {
+           System.out.println("索引存在");
         }
     }
 
