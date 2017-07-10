@@ -6,6 +6,8 @@ import com.chinaredstar.mapper.CommunityRoomMapper;
 import com.chinaredstar.po.CommunityRoomPO;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -58,7 +60,11 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         //创建client
         client = new PreBuiltTransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
-       // client.admin().indices().create(new CreateIndexRequest(index)).actionGet();
+        IndicesExistsRequest request = new IndicesExistsRequest(index);
+        IndicesExistsResponse response = client.admin().indices().exists(request).actionGet();
+        if (!response.isExists()) {
+            client.admin().indices().create(new CreateIndexRequest(index)).actionGet();
+        }
     }
 
     @Override
@@ -129,7 +135,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
                 //核心方法BulkRequestBuilder拼接多个Json
                 BulkRequestBuilder bulkRequest = client.prepareBulk();
                 for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-                    IndexRequestBuilder requestBuilder=client.prepareIndex(type, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+                    IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
                     bulkRequest.add(requestBuilder);
                 }
                 //插入文档至ES, 完成！
@@ -161,7 +167,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         //核心方法BulkRequestBuilder拼接多个Json
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(type, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(requestBuilder);
         }
 
@@ -191,7 +197,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         //核心方法BulkRequestBuilder拼接多个Json
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(type, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(requestBuilder);
         }
 
@@ -221,7 +227,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         //核心方法BulkRequestBuilder拼接多个Json
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(type, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(requestBuilder);
         }
 

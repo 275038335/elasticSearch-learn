@@ -5,10 +5,10 @@ package com.chinaredstar.common;
  */
 public enum  TypeEunms {
 
-    SEARCH_TYPE_FY("FY","房源"),
-    SEARCH_TYPE_XQ("XQ","小区"),
-    SEARCH_TYPE_XX("XX","学校"),
-    SEARCH_TYPE_LP("LP","楼盘")
+    SEARCH_TYPE_FY("fy","房源"),
+    SEARCH_TYPE_XQ("xq","小区"),
+    SEARCH_TYPE_XX("xx","学校"),
+    SEARCH_TYPE_LP("lp","楼盘")
     ;
 
     private String value;
