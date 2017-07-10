@@ -1,11 +1,13 @@
 package com.chinaredstar;
 
+import com.chinaredstar.common.TypeEunms;
 import com.chinaredstar.mapper.CommunityRoomMapper;
 import com.chinaredstar.mapper.SchoolMapper;
 import com.chinaredstar.po.CommunityRoomPO;
 
 import com.chinaredstar.po.SchoolPO;
 import com.chinaredstar.fc.util.json.JsonFormatter;
+import com.chinaredstar.service.CreateIndexServiceImpl;
 import junit.framework.TestCase;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
@@ -59,6 +61,9 @@ public class CreateIndexTest extends TestCase{
 
     @Resource
     private SchoolMapper schoolMapper;
+
+    @Resource
+    private CreateIndexServiceImpl createIndexService;
 
 
     private TransportClient client;
@@ -224,7 +229,10 @@ public class CreateIndexTest extends TestCase{
         DeleteByQueryAction.INSTANCE.newRequestBuilder(client).source(index).filter(builder).execute().actionGet();
     }
 
-
+    @Test
+    public void createIndexService(){
+        createIndexService.createFullIndex(TypeEunms.SEARCH_TYPE_FY.getValue());
+    }
 
 
 
