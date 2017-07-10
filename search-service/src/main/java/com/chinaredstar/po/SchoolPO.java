@@ -1,4 +1,4 @@
-package com.chaoyue.po;
+package com.chinaredstar.po;
 
 /**
  * 学校PO

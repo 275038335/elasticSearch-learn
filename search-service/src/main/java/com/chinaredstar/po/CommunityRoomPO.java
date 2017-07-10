@@ -1,26 +1,29 @@
-package com.chaoyue.bean;
+package com.chinaredstar.po;
+
 
 import java.io.Serializable;
 
 /**
- * Created by chaoyue on 2017/5/24.
+ * Created by chinaredstar on 2017/5/22.
  */
-public class RoomBean implements Serializable{
+public class CommunityRoomPO implements Serializable {
+    private static final long serialVersionUID = -6246815290478950001L;
 
-    private static final long serialVersionUID = -5697920665068781103L;
-    private Integer id;
+    private String id;
+
     private String communityName;
+
     private String title;
+
     private String downPayment;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
-
     public String getCommunityName() {
         return communityName;
     }
@@ -47,11 +50,11 @@ public class RoomBean implements Serializable{
 
     @Override
     public String toString() {
-        return "RoomBean{" +
+        return "CommunityRoom{" +
                 "id=" + id +
                 ", communityName='" + communityName + '\'' +
                 ", title='" + title + '\'' +
-                ", downPayment='" + downPayment + '\'' +
+                ", downPayment=" + downPayment +
                 '}';
     }
 }

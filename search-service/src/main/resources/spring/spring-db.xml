@@ -80,7 +80,7 @@
     </bean>
 
     <bean class="com.chinaredstar.perseus.db.MapperScannerConfigurer">
-        <property name="basePackage" value="com.chaoyue"/>
+        <property name="basePackage" value="com.chinaredstar"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory1"/>
     </bean>
 

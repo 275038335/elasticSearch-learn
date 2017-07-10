@@ -1,4 +1,4 @@
-package com.chaoyue.common;
+package com.chinaredstar.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 /**
- * Created by chaoyue on 2017/5/24.
+ * Created by chinaredstar on 2017/5/24.
  */
 public class ValidateUtil {
 

@@ -13,9 +13,9 @@
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
         <!--jvmSettings.agentId 简写项目名称 只能包含 [a-zA-Z0-9], '.', '-', '_' 且不超过13个长度，中间加符号"-" 占一位 预留10个长度给到脚本自动追加hostname 做全局唯一标识-->
-        <jvmSettings.agentId>fc-dubbo</jvmSettings.agentId>
+        <jvmSettings.agentId>fc-es</jvmSettings.agentId>
         <!--jvmSettings.agentApplicationName 只能包含 [a-zA-Z0-9], '.', '-', '_'. 最大长度:24 -->
-        <jvmSettings.agentApplicationName>p-fanghchan-dubbo</jvmSettings.agentApplicationName>
+        <jvmSettings.agentApplicationName>p-fanghchan-es</jvmSettings.agentApplicationName>
     </properties>
 
 
@@ -40,7 +40,7 @@
             <properties>
                 <env>uat</env>
                 <jvmSettings.javaagent>
-                    -javaagent:/data/app/pinpoint-agent-1.5.2/pinpoint-bootstrap-1.5.2.jar
+                    -javaagent:/data/app/pinpoint-agent-1.6.1/pinpoint-bootstrap-1.6.1.jar
                 </jvmSettings.javaagent>
                 <jvmSettings.initialMemorySize>512</jvmSettings.initialMemorySize>
                 <jvmSettings.maxMemorySize>512</jvmSettings.maxMemorySize>
@@ -52,7 +52,7 @@
             <properties>
                 <env>uat1</env>
                 <jvmSettings.javaagent>
-                    -javaagent:/data/app/pinpoint-agent-1.5.2/pinpoint-bootstrap-1.5.2.jar
+                    -javaagent:/data/app/pinpoint-agent-1.6.1/pinpoint-bootstrap-1.6.1.jar
                 </jvmSettings.javaagent>
                 <jvmSettings.initialMemorySize>512</jvmSettings.initialMemorySize>
                 <jvmSettings.maxMemorySize>512</jvmSettings.maxMemorySize>
@@ -74,7 +74,7 @@
             <properties>
                 <env>prd</env>
                 <jvmSettings.javaagent>
-                    -javaagent:/data/app/pinpoint-agent-1.5.2/100/pinpoint-bootstrap-1.5.2.jar
+                    -javaagent:/data/app/pinpoint-agent-1.6.1/100/pinpoint-bootstrap-1.6.1.jar
                 </jvmSettings.javaagent>
                 <jvmSettings.initialMemorySize>512</jvmSettings.initialMemorySize>
                 <jvmSettings.maxMemorySize>512</jvmSettings.maxMemorySize>
@@ -83,12 +83,6 @@
     </profiles>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-solrj</artifactId>
-            <version>5.3.1</version>
-        </dependency>
         <dependency>
             <groupId>com.chinaredstar</groupId>
             <artifactId>search-api</artifactId>

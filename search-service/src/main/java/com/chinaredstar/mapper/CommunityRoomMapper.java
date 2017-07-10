@@ -1,12 +1,12 @@
-package com.chaoyue.mapper;
+package com.chinaredstar.mapper;
 
-import com.chaoyue.po.CommunityRoomPO;
+import com.chinaredstar.po.CommunityRoomPO;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by chaoyue on 2017/5/23.
+ * Created by chinaredstar on 2017/5/23.
  */
 public interface CommunityRoomMapper {
 

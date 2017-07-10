@@ -1,4 +1,4 @@
-package com.chaoyue.common;
+package com.chinaredstar.common;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;

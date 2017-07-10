@@ -1,10 +1,10 @@
-package com.chaoyue;
+package com.chinaredstar;
 
-import com.chaoyue.mapper.CommunityRoomMapper;
-import com.chaoyue.mapper.SchoolMapper;
-import com.chaoyue.po.CommunityRoomPO;
+import com.chinaredstar.mapper.CommunityRoomMapper;
+import com.chinaredstar.mapper.SchoolMapper;
+import com.chinaredstar.po.CommunityRoomPO;
 
-import com.chaoyue.po.SchoolPO;
+import com.chinaredstar.po.SchoolPO;
 import com.chinaredstar.fc.util.json.JsonFormatter;
 import junit.framework.TestCase;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;

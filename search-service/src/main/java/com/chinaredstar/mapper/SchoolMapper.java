@@ -1,6 +1,6 @@
-package com.chaoyue.mapper;
+package com.chinaredstar.mapper;
 
-import com.chaoyue.po.SchoolPO;
+import com.chinaredstar.po.SchoolPO;
 
 import java.util.List;
 import java.util.Map;

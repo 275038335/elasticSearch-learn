@@ -1,11 +1,11 @@
-package com.chaoyue.common;
+package com.chinaredstar.common;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 字符串处理
- * Created by chaoyue on 2017/5/24.
+ * Created by chinaredstar on 2017/5/24.
  */
 public class StringUtil {
 

@@ -1,4 +1,4 @@
-package com.chaoyue.bean;
+package com.chinaredstar.bean;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * 分页搜索参数
- * Created by chaoyue on 2017/5/24.
+ * Created by chinaredstar on 2017/5/24.
  */
 public class PageBean<T> implements Serializable {
 

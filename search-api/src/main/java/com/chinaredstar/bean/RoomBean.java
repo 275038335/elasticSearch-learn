@@ -1,34 +1,26 @@
-package com.chaoyue.po;
-
-import org.apache.solr.client.solrj.beans.Field;
+package com.chinaredstar.bean;
 
 import java.io.Serializable;
 
 /**
- * Created by chaoyue on 2017/5/22.
+ * Created by chinaredstar on 2017/5/24.
  */
-public class CommunityRoomPO implements Serializable {
-    private static final long serialVersionUID = -6246815290478950001L;
+public class RoomBean implements Serializable{
 
-    @Field
-    private String id;
-
-    @Field
+    private static final long serialVersionUID = -5697920665068781103L;
+    private Integer id;
     private String communityName;
-
-    @Field
     private String title;
-
-    @Field
     private String downPayment;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
     public String getCommunityName() {
         return communityName;
     }
@@ -55,11 +47,11 @@ public class CommunityRoomPO implements Serializable {
 
     @Override
     public String toString() {
-        return "CommunityRoom{" +
+        return "RoomBean{" +
                 "id=" + id +
                 ", communityName='" + communityName + '\'' +
                 ", title='" + title + '\'' +
-                ", downPayment=" + downPayment +
+                ", downPayment='" + downPayment + '\'' +
                 '}';
     }
 }

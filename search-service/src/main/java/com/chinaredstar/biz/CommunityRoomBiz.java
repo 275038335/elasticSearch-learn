@@ -1,7 +1,7 @@
-package com.chaoyue.biz;
+package com.chinaredstar.biz;
 
-import com.chaoyue.mapper.CommunityRoomMapper;
-import com.chaoyue.po.CommunityRoomPO;
+import com.chinaredstar.mapper.CommunityRoomMapper;
+import com.chinaredstar.po.CommunityRoomPO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by chaoyue on 2017/5/22.
+ * Created by chinaredstar on 2017/5/22.
  */
 @Service
 public class CommunityRoomBiz {

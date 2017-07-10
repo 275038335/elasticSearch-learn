@@ -1,4 +1,4 @@
-package com.chaoyue.common;
+package com.chinaredstar.common;
 
 import java.util.List;
 

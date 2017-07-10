@@ -1,11 +1,11 @@
-package com.chaoyue.bean;
+package com.chinaredstar.bean;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 
 /**
- * Created by chaoyue on 2017/5/24.
+ * Created by chinaredstar on 2017/5/24.
  */
 public class SearchBean implements Serializable {
     private static final long serialVersionUID = 949153107612892592L;

@@ -1,4 +1,4 @@
-package com.chaoyue.common;
+package com.chinaredstar.common;
 
 import net.sf.cglib.beans.BeanCopier;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.chaoyue.bean;
+package com.chinaredstar.bean;
 
 import java.io.Serializable;
 

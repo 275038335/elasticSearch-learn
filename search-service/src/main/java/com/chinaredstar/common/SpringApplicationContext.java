@@ -1,4 +1,4 @@
-package com.chaoyue.common;
+package com.chinaredstar.common;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 获取spring容器上下文
- * Created by chaoyue on 2017/5/23.
+ * Created by chinaredstar on 2017/5/23.
  */
 @Component
 public class SpringApplicationContext implements ApplicationContextAware {
