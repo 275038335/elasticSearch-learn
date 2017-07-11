@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinaredstar.mapper.loupan.LoupanMapper">
+
+	<!--楼盘信息查询 -->
+	<resultMap id="loupanSynopsisPOMap" type="com.chinaredstar.po.LoupanPO">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="saleStatus" property="saleStatus" jdbcType="INTEGER"/>
+		<result column="area" property="area" jdbcType="VARCHAR"/>
+		<result column="areaCode" property="areaCode" jdbcType="VARCHAR"/>
+		<result column="plate" property="plate" jdbcType="VARCHAR"/>
+		<result column="plateCode" property="plateCode" jdbcType="VARCHAR"/>
+		<result column="loop" property="loop" jdbcType="VARCHAR"/>
+		<result column="loopCode" property="loopCode" jdbcType="VARCHAR"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+		<result column="developersOffer" property="developersOffer" jdbcType="DECIMAL"/>
+		<result column="tags" property="tags" jdbcType="VARCHAR"/>
+		<result column="minReferenceSumPrice" property="minReferenceSumPrice" jdbcType="DECIMAL"/>
+		<result column="maxReferenceSumPrice" property="maxReferenceSumPrice" jdbcType="DECIMAL"/>
+		<result column="minUnitBuildingArea" property="minUnitBuildingArea" jdbcType="DECIMAL"/>
+		<result column="maxUnitBuildingArea" property="maxUnitBuildingArea" jdbcType="DECIMAL"/>
+		<result column="coverImgUrl" property="coverImgUrl" jdbcType="VARCHAR"/>
+		<collection column="roomNum" property="roomNumList"  ofType="java.lang.String"/>
+	</resultMap>
+
+	<!--查询楼盘相关信息-->
+	<select id="queryLoupanData" resultMap="loupanSynopsisPOMap">
+		SELECT
+			fcl.id,
+			fcl.name,
+			fcl.saleStatus,
+			fcl.area,
+			fcl.areaCode,
+			fcl.plate,
+			fcl.plateCode,
+			fcl.loop,
+			fcl.loopCode,
+			fcl.developersOffer,
+			fcl.tags,
+			fclhtd.minReferenceSumPrice,
+			fclhtd.maxReferenceSumPrice,
+			fclhtd.minUnitBuildingArea,
+			fclhtd.maxUnitBuildingArea,
+			fccp.url coverImgUrl,
+			flht.room as roomNum
+		FROM
+			fc_loupan AS fcl
+		LEFT JOIN fc_loupan_house_type_data AS fclhtd ON fclhtd.loupanId = fcl.id
+		LEFT JOIN fc_cover_picture AS fccp ON fccp.resourceId = fcl.id AND fccp.resourceType = 1
+		LEFT JOIN fc_loupan_house_type flht ON flht.loupanId = fcl.id
+	</select>
+
+</mapper>

@@ -3,8 +3,10 @@ package com.chinaredstar;
 import com.chinaredstar.common.TypeEunms;
 import com.chinaredstar.mapper.CommunityRoomMapper;
 import com.chinaredstar.mapper.SchoolMapper;
+import com.chinaredstar.mapper.loupan.LoupanMapper;
 import com.chinaredstar.po.CommunityRoomPO;
 
+import com.chinaredstar.po.LoupanPO;
 import com.chinaredstar.po.SchoolPO;
 import com.chinaredstar.fc.util.json.JsonFormatter;
 import com.chinaredstar.service.CreateIndexServiceImpl;
@@ -64,6 +66,9 @@ public class CreateIndexTest extends TestCase{
     private SchoolMapper schoolMapper;
 
     @Resource
+    private LoupanMapper loupanMapper;
+
+    @Resource
     private CreateIndexServiceImpl createIndexService;
 
     @Resource
@@ -77,6 +82,8 @@ public class CreateIndexTest extends TestCase{
     private  String type = "details";
 
     private String schoolType="schoolType";
+
+    private String loupanType="loupan";
 
 
     /**
@@ -122,6 +129,28 @@ public class CreateIndexTest extends TestCase{
             IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             UpdateRequestBuilder updateRequestBuilder=client.prepareUpdate(index, type,communityRoomPO.getId().toString()).setDoc(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(updateRequestBuilder);
+        }
+
+
+        //插入文档至ES, 完成！
+        bulkRequest.execute().actionGet();
+    }
+
+
+    /**
+     * 导入楼盘数据
+     * @throws IOException
+     */
+    @Test
+    public void insertLoupanData() throws IOException {
+        List<LoupanPO> list=loupanMapper.queryLoupanData(0,100);
+
+        //核心方法BulkRequestBuilder拼接多个Json
+        BulkRequestBuilder bulkRequest = client.prepareBulk();
+        for(LoupanPO communityRoomPO:list){
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, loupanType,communityRoomPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            UpdateRequestBuilder updateRequestBuilder=client.prepareUpdate(index, loupanType,communityRoomPO.getId().toString()).setDoc(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            bulkRequest.add(requestBuilder);
         }
 
 
