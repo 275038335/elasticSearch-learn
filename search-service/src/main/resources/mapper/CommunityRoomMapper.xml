@@ -3,11 +3,38 @@
 <mapper namespace="com.chinaredstar.mapper.CommunityRoomMapper">
 
 	<select id="countNum" resultType="java.lang.Long">
-		SELECT count(*) FROM xiwa_redstar_community_room a where a.status=1 and a.dataBelong =1;
+		SELECT count(*)  FROM
+        xiwa_redstar_community_room AS fccr
+        LEFT JOIN xiwa_redstar_community AS fcc
+        ON fcc.id = fccr.communityId
+        LEFT JOIN fc_cover_picture AS fccp
+        ON fccp.resourceId = fccr.id
+        AND fccp.resourceType = 5
 	</select>
 
 	<select id="findByPage" parameterType="java.util.Map" resultType="com.chinaredstar.po.CommunityRoomPO">
-		SELECT a.id,a.CommunityName,a.title,a.downPayment FROM xiwa_redstar_community_room a where a.status=1 and a.dataBelong =1
+		SELECT
+        fccr.id,
+        fccr.communityId,
+        fcc.name communityName,
+        fccr.room,
+        fccr.hall,
+        fccr.buildingArea,
+        fccr.floor,
+        fccr.floorMax totalFloor,
+        fccr.sumPrice,
+        fccr.tags,
+        fccr.certificateTime,
+        fccr.sole isOnly,
+        fccr.topRank,
+        fccp.url coverImgUrl
+        FROM
+        xiwa_redstar_community_room AS fccr
+        LEFT JOIN xiwa_redstar_community AS fcc
+        ON fcc.id = fccr.communityId
+        LEFT JOIN fc_cover_picture AS fccp
+        ON fccp.resourceId = fccr.id
+        AND fccp.resourceType = 5
 		LIMIT #{start},#{rows}
 	</select>
 
@@ -18,4 +45,5 @@
 			#{ids}
 		</foreach>
 	</select>
+
 </mapper>

@@ -115,8 +115,8 @@ public class CreateIndexTest extends TestCase{
         //核心方法BulkRequestBuilder拼接多个Json
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(CommunityRoomPO communityRoomPO:list){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
-            UpdateRequestBuilder updateRequestBuilder=client.prepareUpdate(index, type,communityRoomPO.getId()).setDoc(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            UpdateRequestBuilder updateRequestBuilder=client.prepareUpdate(index, type,communityRoomPO.getId().toString()).setDoc(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(updateRequestBuilder);
         }
 
@@ -139,7 +139,7 @@ public class CreateIndexTest extends TestCase{
         //核心方法BulkRequestBuilder拼接多个Json
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(SchoolPO schoolPO:list){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(index, schoolType,schoolPO.getId()).setSource(JsonFormatter.toJsonAsString(schoolPO), XContentType.JSON);
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, schoolType,schoolPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(schoolPO), XContentType.JSON);
             bulkRequest.add(requestBuilder);
         }
 
@@ -166,10 +166,10 @@ public class CreateIndexTest extends TestCase{
     @Test
     public void updateData() throws IOException {
         CommunityRoomPO communityRoomPO=new CommunityRoomPO();
-        communityRoomPO.setId("100143");
-        communityRoomPO.setTitle("进行修改的数据");
+        communityRoomPO.setId(100143);
+     //   communityRoomPO.setTitle("进行修改的数据");
         communityRoomPO.setCommunityName("一个不愿意透露姓名的小区");
-        communityRoomPO.setDownPayment("6000000");
+      //  communityRoomPO.setDownPayment("6000000");
         UpdateResponse updateResponse=client.prepareUpdate(index,type,"100143").setDoc(JsonFormatter.toJsonAsString(communityRoomPO)).get();
         System.out.println(updateResponse);
     }
@@ -231,7 +231,7 @@ public class CreateIndexTest extends TestCase{
 
     @Test
     public void createIndexService(){
-        createIndexService.createFullIndex(TypeEunms.SEARCH_TYPE_FY.getValue());
+        createIndexService.createFullIndex(TypeEunms.SEARCH_TYPE_FY.getValue(),TypeEunms.SEARCH_TYPE_XX.getValue());
     }
 
 

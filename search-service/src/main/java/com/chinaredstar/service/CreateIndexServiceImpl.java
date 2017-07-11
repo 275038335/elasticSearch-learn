@@ -3,13 +3,13 @@ package com.chinaredstar.service;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.chinaredstar.common.TypeEunms;
 import com.chinaredstar.mapper.CommunityRoomMapper;
+import com.chinaredstar.mapper.SchoolMapper;
 import com.chinaredstar.po.CommunityRoomPO;
+import com.chinaredstar.po.SchoolPO;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
-import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
@@ -50,6 +50,9 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
 
     @Resource
     private CommunityRoomMapper communityRoomMapper;
+
+    @Resource
+    private SchoolMapper schoolMapper;
 
     CreateIndexServiceImpl() throws UnknownHostException{
         //设置集群名称
@@ -135,7 +138,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
                 //核心方法BulkRequestBuilder拼接多个Json
                 BulkRequestBuilder bulkRequest = client.prepareBulk();
                 for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-                    IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+                    IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
                     bulkRequest.add(requestBuilder);
                 }
                 //插入文档至ES, 完成！
@@ -167,7 +170,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         //核心方法BulkRequestBuilder拼接多个Json
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(requestBuilder);
         }
 
@@ -189,21 +192,29 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
     public Boolean createXXIndex(String type) throws Exception{
         deleteType(type);
 
-        Map map=new HashMap();
-        map.put("start",30);
-        map.put("rows",20);
-        List<CommunityRoomPO> communityRoomPOS=communityRoomMapper.findByPage(map);
+        Long num = schoolMapper.countNum();
+        //计算总页数
+        if (num != null && num >0){
+            Long totalPages = num / DEFAULT_PAGE_SIZE;
+            if (num % DEFAULT_PAGE_SIZE >0){
+                totalPages++;
+            }
+            for (int i=1; i<=totalPages;i++){
+                Map map=new HashMap();
+                map.put("start",i);
+                map.put("rows",DEFAULT_PAGE_SIZE);
+                List<SchoolPO> schoolPOS=schoolMapper.findByPage(map);
+                //核心方法BulkRequestBuilder拼接多个Json
+                BulkRequestBuilder bulkRequest = client.prepareBulk();
+                for(SchoolPO po:schoolPOS){
+                    IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,po.getId().toString()).setSource(JsonFormatter.toJsonAsString(po), XContentType.JSON);
+                    bulkRequest.add(requestBuilder);
+                }
+                //插入文档至ES, 完成！
+                bulkRequest.execute().actionGet();
 
-        //核心方法BulkRequestBuilder拼接多个Json
-        BulkRequestBuilder bulkRequest = client.prepareBulk();
-        for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
-            bulkRequest.add(requestBuilder);
+            }
         }
-
-        //插入文档至ES, 完成！
-        bulkRequest.execute().actionGet();
-
         logger.info("==========================================");
         logger.info("学校索引创建完成");
         logger.info("==========================================");
@@ -227,7 +238,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
         //核心方法BulkRequestBuilder拼接多个Json
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for(CommunityRoomPO communityRoomPO:communityRoomPOS){
-            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
+            IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(requestBuilder);
         }
 

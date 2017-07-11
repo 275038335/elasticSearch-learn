@@ -3,11 +3,31 @@
 <mapper namespace="com.chinaredstar.mapper.SchoolMapper">
 
 	<select id="countNum" resultType="java.lang.Long">
-		SELECT count(*) FROM xiwa_redstar_school a where a.status=1 and a.dataBelong =1;
+		SELECT count(*)	FROM
+			xiwa_redstar_school AS fcs
+			LEFT JOIN fc_school_community_room_data AS fcscrd
+			ON fcscrd.schoolId = fcs.id
+			LEFT JOIN fc_cover_picture AS fccp
+			ON fccp.resourceId = fcs.id
+			AND fccp.resourceType = 3
 	</select>
 
 	<select id="findByPage" parameterType="java.util.Map" resultType="com.chinaredstar.po.SchoolPO">
-		SELECT a.id,a.name,a.address,a.introduce FROM xiwa_redstar_school a where a.status=1 and a.dataBelong =1
+		SELECT
+			fcs.id,
+			fcs.name,
+			fcs.tags,
+			fcscrd.communityAmount,
+			fcscrd.roomAmount,
+			fcscrd.minSumPrice,
+			fccp.url coverImgUrl
+			FROM
+			xiwa_redstar_school AS fcs
+			LEFT JOIN fc_school_community_room_data AS fcscrd
+			ON fcscrd.schoolId = fcs.id
+			LEFT JOIN fc_cover_picture AS fccp
+			ON fccp.resourceId = fcs.id
+			AND fccp.resourceType = 3
 		LIMIT #{start},#{rows}
 	</select>
 
