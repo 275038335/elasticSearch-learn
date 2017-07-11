@@ -21,7 +21,9 @@
 		<result column="minUnitBuildingArea" property="minUnitBuildingArea" jdbcType="DECIMAL"/>
 		<result column="maxUnitBuildingArea" property="maxUnitBuildingArea" jdbcType="DECIMAL"/>
 		<result column="coverImgUrl" property="coverImgUrl" jdbcType="VARCHAR"/>
-		<collection column="roomNum" property="roomNumList"  ofType="java.lang.String"/>
+		<collection property="roomNumList" ofType="java.lang.Integer" >
+			<result column="roomNum"/>
+		</collection>
 	</resultMap>
 
 	<!--查询楼盘相关信息-->
