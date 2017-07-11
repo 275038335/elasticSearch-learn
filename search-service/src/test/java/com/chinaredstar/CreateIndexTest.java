@@ -8,6 +8,7 @@ import com.chinaredstar.po.CommunityRoomPO;
 import com.chinaredstar.po.SchoolPO;
 import com.chinaredstar.fc.util.json.JsonFormatter;
 import com.chinaredstar.service.CreateIndexServiceImpl;
+import com.chinaredstar.service.SearchServiceImpl;
 import junit.framework.TestCase;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
@@ -64,6 +65,9 @@ public class CreateIndexTest extends TestCase{
 
     @Resource
     private CreateIndexServiceImpl createIndexService;
+
+    @Resource
+    private SearchServiceImpl searchService;
 
 
     private TransportClient client;
@@ -232,6 +236,11 @@ public class CreateIndexTest extends TestCase{
     @Test
     public void createIndexService(){
         createIndexService.createFullIndex(TypeEunms.SEARCH_TYPE_FY.getValue(),TypeEunms.SEARCH_TYPE_XX.getValue());
+    }
+
+    @Test
+    public void searchTest(){
+        searchService.queryRoom("大厦",1,1000);
     }
 
 

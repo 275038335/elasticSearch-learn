@@ -45,8 +45,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
 
     private TransportClient client;
 
-    private String index = "fangchan";
-
+    private static final String index = "fangchan";
 
     @Resource
     private CommunityRoomMapper communityRoomMapper;

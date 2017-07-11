@@ -1,6 +1,7 @@
 package com.chinaredstar.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Created by chinaredstar on 2017/5/24.
@@ -8,10 +9,34 @@ import java.io.Serializable;
 public class RoomBean implements Serializable{
 
     private static final long serialVersionUID = -5697920665068781103L;
+    /** 房源id */
     private Integer id;
+    /** 小区id */
+    private Integer communityId;
+    /** 小区名 */
     private String communityName;
-    private String title;
-    private String downPayment;
+    /** 室 */
+    private Integer room;
+    /** 厅 */
+    private Integer hall;
+    /** 面积 */
+    private BigDecimal buildingArea;
+    /** 楼层 */
+    private Integer floor;
+    /** 总楼层 */
+    private Integer totalFloor;
+    /** 房源总价 */
+    private BigDecimal sumPrice;
+    /** 标签 */
+    private String tags;
+    /** 产证时间 */
+    private Integer certificateTime;
+    /** 是否唯一 */
+    private Integer isOnly;
+    /** 置顶排序 */
+    private Integer topRank;
+    /** 封面图 */
+    private String coverImgUrl;
 
     public Integer getId() {
         return id;
@@ -19,6 +44,14 @@ public class RoomBean implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCommunityId() {
+        return communityId;
+    }
+
+    public void setCommunityId(Integer communityId) {
+        this.communityId = communityId;
     }
 
     public String getCommunityName() {
@@ -29,29 +62,111 @@ public class RoomBean implements Serializable{
         this.communityName = communityName;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getRoom() {
+        return room;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setRoom(Integer room) {
+        this.room = room;
     }
 
-    public String getDownPayment() {
-        return downPayment;
+    public Integer getHall() {
+        return hall;
     }
 
-    public void setDownPayment(String downPayment) {
-        this.downPayment = downPayment;
+    public void setHall(Integer hall) {
+        this.hall = hall;
+    }
+
+    public BigDecimal getBuildingArea() {
+        return buildingArea;
+    }
+
+    public void setBuildingArea(BigDecimal buildingArea) {
+        this.buildingArea = buildingArea;
+    }
+
+    public Integer getFloor() {
+        return floor;
+    }
+
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
+
+    public Integer getTotalFloor() {
+        return totalFloor;
+    }
+
+    public void setTotalFloor(Integer totalFloor) {
+        this.totalFloor = totalFloor;
+    }
+
+    public BigDecimal getSumPrice() {
+        return sumPrice;
+    }
+
+    public void setSumPrice(BigDecimal sumPrice) {
+        this.sumPrice = sumPrice;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Integer getCertificateTime() {
+        return certificateTime;
+    }
+
+    public void setCertificateTime(Integer certificateTime) {
+        this.certificateTime = certificateTime;
+    }
+
+    public Integer getIsOnly() {
+        return isOnly;
+    }
+
+    public void setIsOnly(Integer isOnly) {
+        this.isOnly = isOnly;
+    }
+
+    public Integer getTopRank() {
+        return topRank;
+    }
+
+    public void setTopRank(Integer topRank) {
+        this.topRank = topRank;
+    }
+
+    public String getCoverImgUrl() {
+        return coverImgUrl;
+    }
+
+    public void setCoverImgUrl(String coverImgUrl) {
+        this.coverImgUrl = coverImgUrl;
     }
 
     @Override
     public String toString() {
-        return "RoomBean{" +
+        return "CommunityRoomPO{" +
                 "id=" + id +
+                ", communityId=" + communityId +
                 ", communityName='" + communityName + '\'' +
-                ", title='" + title + '\'' +
-                ", downPayment='" + downPayment + '\'' +
+                ", room=" + room +
+                ", hall=" + hall +
+                ", buildingArea=" + buildingArea +
+                ", floor=" + floor +
+                ", totalFloor=" + totalFloor +
+                ", sumPrice=" + sumPrice +
+                ", tags='" + tags + '\'' +
+                ", certificateTime=" + certificateTime +
+                ", isOnly=" + isOnly +
+                ", topRank=" + topRank +
+                ", coverImgUrl='" + coverImgUrl + '\'' +
                 '}';
     }
 }
