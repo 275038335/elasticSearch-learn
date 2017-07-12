@@ -40,6 +40,31 @@ public class CommunityRoomPO implements Serializable {
     /** 封面图 */
     private String coverImgUrl;
 
+    /**
+     * 区域Code
+     */
+    private String areaCode;
+
+    /**
+     * 板块Code
+     */
+    private String plateCode;
+
+    /**
+     * 装修
+     */
+    private String decoration;
+
+    /**
+     * 朝向
+     */
+    private String toward;
+
+    /**
+     * 竣工年份
+     */
+    private String completionTime;
+
     public Integer getId() {
         return id;
     }
@@ -152,6 +177,46 @@ public class CommunityRoomPO implements Serializable {
         this.coverImgUrl = coverImgUrl;
     }
 
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+    }
+
+    public String getPlateCode() {
+        return plateCode;
+    }
+
+    public void setPlateCode(String plateCode) {
+        this.plateCode = plateCode;
+    }
+
+    public String getToward() {
+        return toward;
+    }
+
+    public void setToward(String toward) {
+        this.toward = toward;
+    }
+
+    public String getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(String completionTime) {
+        this.completionTime = completionTime;
+    }
+
+    public String getDecoration() {
+        return decoration;
+    }
+
+    public void setDecoration(String decoration) {
+        this.decoration = decoration;
+    }
+
     @Override
     public String toString() {
         return "CommunityRoomPO{" +
@@ -169,6 +234,11 @@ public class CommunityRoomPO implements Serializable {
                 ", isOnly=" + isOnly +
                 ", topRank=" + topRank +
                 ", coverImgUrl='" + coverImgUrl + '\'' +
+                ", areaCode='" + areaCode + '\'' +
+                ", plateCode='" + plateCode + '\'' +
+                ", decoration='" + decoration + '\'' +
+                ", toward='" + toward + '\'' +
+                ", completionTime='" + completionTime + '\'' +
                 '}';
     }
 }

@@ -13,7 +13,7 @@
 	</select>
 
 	<select id="findByPage" parameterType="java.util.Map" resultType="com.chinaredstar.po.CommunityRoomPO">
-		SELECT
+      SELECT
         fccr.id,
         fccr.communityId,
         fcc.name communityName,
@@ -27,7 +27,14 @@
         fccr.certificateTime,
         fccr.sole isOnly,
         fccr.topRank,
-        fccp.url coverImgUrl
+        fccp.url coverImgUrl,
+        fcc.areaCode areaCode,
+        fcc.plateCode plateCode,
+        fccr.certificateTime certificateTime,
+        fccr.decoration decoration,
+        fccr.topRank topRank,
+        fccr.completionTime completionTime,
+        fccr.toward toward
         FROM
         xiwa_redstar_community_room AS fccr
         LEFT JOIN xiwa_redstar_community AS fcc

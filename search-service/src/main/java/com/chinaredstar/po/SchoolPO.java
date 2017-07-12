@@ -23,6 +23,36 @@ public class SchoolPO {
     private String tags;
     /** 封面图 */
     private String coverImgUrl;
+    /**
+     * 区域Code
+     */
+    private String areaCode;
+
+    /**
+     * 板块Code
+     */
+    private String plateCode;
+
+    /**
+     * 类型
+     */
+    private String type;
+
+    /**
+     * 级别
+     */
+    private String level;
+
+    /**
+     * 属性
+     */
+    private String property;
+
+    /**
+     * 特色
+     */
+    private String feature;
+
     public Integer getId() {
         return id;
     }
@@ -65,7 +95,53 @@ public class SchoolPO {
     public void setCoverImgUrl(String coverImgUrl) {
         this.coverImgUrl = coverImgUrl;
     }
+    public String getAreaCode() {
+        return areaCode;
+    }
 
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+    }
+
+    public String getPlateCode() {
+        return plateCode;
+    }
+
+    public void setPlateCode(String plateCode) {
+        this.plateCode = plateCode;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+    public String getFeature() {
+        return feature;
+    }
+
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
     @Override
     public String toString() {
         return "SchoolPO{" +
@@ -76,6 +152,12 @@ public class SchoolPO {
                 ", minSumPrice=" + minSumPrice +
                 ", tags='" + tags + '\'' +
                 ", coverImgUrl='" + coverImgUrl + '\'' +
+                ", areaCode='" + areaCode + '\'' +
+                ", plateCode='" + plateCode + '\'' +
+                ", type='" + type + '\'' +
+                ", level='" + level + '\'' +
+                ", property='" + property + '\'' +
+                ", feature='" + feature + '\'' +
                 '}';
     }
 }

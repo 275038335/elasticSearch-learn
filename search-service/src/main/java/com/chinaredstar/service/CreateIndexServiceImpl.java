@@ -117,12 +117,8 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
      * @throws Exception
      */
     public Boolean createFYIndex(String type) throws Exception{
-
         deleteType(type);
-
-
         Long num = communityRoomMapper.countNum();
-
         //计算总页数
         if (num != null && num >0){
             Long totalPages = num / DEFAULT_PAGE_SIZE;
@@ -142,7 +138,6 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
                 }
                 //插入文档至ES, 完成！
                 bulkRequest.execute().actionGet();
-
             }
         }
         logger.info("==========================================");
@@ -158,9 +153,7 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
      * @throws Exception
      */
     public Boolean createXQIndex(String type) throws Exception{
-
         deleteType(type);
-
         Map map=new HashMap();
         map.put("start",30);
         map.put("rows",20);
@@ -172,7 +165,6 @@ public class CreateIndexServiceImpl implements ICreateIndexService {
             IndexRequestBuilder requestBuilder=client.prepareIndex(index, type,communityRoomPO.getId().toString()).setSource(JsonFormatter.toJsonAsString(communityRoomPO), XContentType.JSON);
             bulkRequest.add(requestBuilder);
         }
-
         //插入文档至ES, 完成！
         bulkRequest.execute().actionGet();
 

@@ -20,7 +20,13 @@
 			fcscrd.communityAmount,
 			fcscrd.roomAmount,
 			fcscrd.minSumPrice,
-			fccp.url coverImgUrl
+			fccp.url coverImgUrl,
+		    fcs.plateCode,
+		    fcs.areaCode,
+		    fcs.type,
+		    fcs.level,
+		    fcs.property,
+		    fcs.feature
 			FROM
 			xiwa_redstar_school AS fcs
 			LEFT JOIN fc_school_community_room_data AS fcscrd
